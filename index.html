@@ -51,10 +51,14 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
-	var want_offset = 105;
-	var have_offset = 205;
+	var want_y = 105;
+	var have_y = 205;
+	var want_offset = 0;
+	var have_offset = 0;
 	var want_col = 0;
 	var have_col = 0;
+	var total_have = 0;
+	var total_want = 0;
 	function addImage() {
 		 
 		var typeSelect =  document.querySelector('input[name="fieldSelect"]:checked').value;
@@ -68,29 +72,46 @@
 		
 		if(typeSelect == "have")
 		{
-			newElement.setAttribute("x", (have_col * 40 + 10).toString());
-			newElement.setAttribute("y", (have_offset).toString());
-			have_col++;
-			if(have_col % 4 == 0)
+			if(total_have < 8)
 			{
-				have_col = 0;
-				have_offset+=30;
+				newElement.setAttribute("x", (have_col * 40 + 10).toString());
+				newElement.setAttribute("y", (have_y + have_offset).toString());
+				newElement.setAttribute("ID", "haveImage");
+				have_col++;
+				if(have_col % 4 == 0)
+				{
+					have_col = 0;
+					
+					have_offset+=30;
+					
+				}
+				total_have++;
+				svg.appendChild(newElement);
 			}
+			
 			
 		}
 		else
 		{
-			newElement.setAttribute("x", (want_col * 40 + 10).toString());
-			newElement.setAttribute("y", (want_offset).toString());
-			want_col++;
-			if(want_col % 4 == 0)
+			if(total_want < 8)
 			{
-				want_col = 0;
-				want_offset+=30;
+				newElement.setAttribute("x", (want_col * 40 + 10).toString());
+				newElement.setAttribute("y", (want_y + want_offset).toString());
+				newElement.setAttribute("ID", "wantImage");
+				want_col++;
+				if(want_col % 4 == 0)
+				{
+					want_col = 0;
+					want_offset+=30;
+					
+				}
+				total_want++;
+				svg.appendChild(newElement);
 			}
 			
+			
 		}
-		svg.appendChild(newElement);
+
 		$("#div-box-left").html($("#div-box-left").html());
 	}
 	
@@ -157,7 +178,34 @@
 		}
 		 
 	}
-	
+	function removeWant() {
+		if(want_col >0 || (want_col == 0 && want_offset > 0))
+		{
+			var svg = document.getElementById('tag');
+			var items = $('[id=wantImage]').get();
+			items.forEach(function(item) {
+			  svg.removeChild(item);
+			});
+			want_col = 0;
+			want_offset = 0;
+			total_want = 0;
+		}
+		 
+	}
+	function removeHave() {
+		if(have_col >0 || (have_col == 0 && have_offset > 0))
+		{
+			var svg = document.getElementById('tag');
+			var items = $('[id=haveImage]').get();
+			items.forEach(function(item) {
+			  svg.removeChild(item);
+			});
+			have_col = 0;
+			have_offset = 0;
+			total_have = 0;
+		}
+		 
+	}
 	
 	
   </script>
@@ -217,6 +265,8 @@
 		<div>
 		<br>
 		<br>
+		<input type="button" onclick="removeWant()" name="avatar" value="Remove Want"><br>
+		<input type="button" onclick="removeHave()" name="avatar" value="Remove Have">
 		<br>
 		<br>
 			<input type="radio" name="fieldSelect" value="want" checked>Want<br>
