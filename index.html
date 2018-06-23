@@ -21,16 +21,62 @@
 			display: flex;
 		}
 
-		#div-outer div {
+		#div-outer {
+			height: 1000px;
+			width: 600px;
+			margin: 1%;
+		}
+		#div-box-left {
 			height: 1000px;
 			width: 550px;
 			margin: 1%;
 		}
 		ul{
-			height: 350px;
+			height: 320px;
 			width: 120px;
+			padding-left: 5px;
 			overflow: auto;
 			
+		}
+		/* Style the tab */
+		.tab {
+		    overflow: hidden;
+		    border: 1px solid #ccc;
+		    background-color: #f1f1f1;
+		    
+		    width: 150px;
+		}
+
+		/* Style the buttons that are used to open the tab content */
+		.tab button {
+		    background-color: inherit;
+		    float: left;
+		    border: none;
+		    outline: none;
+		    cursor: pointer;
+		    padding: 14px 16px;
+		    transition: 0.3s;
+		}
+
+		/* Change background color of buttons on hover */
+		.tab button:hover {
+		    background-color: #ddd;
+		}
+
+		/* Create an active/current tablink class */
+		.tab button.active {
+		    background-color: #ccc;
+		}
+
+		/* Style the tab content */
+		.tabcontent {
+		    display: none;
+		    padding: 6px 12px;
+		    
+		    border-top: none;
+		    width: 50px;
+		    height: 350px;
+		    padding-bottom: 20px;
 		}
 		form{
 			color: black;
@@ -50,9 +96,6 @@
 	</style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" src="http://canvg.github.io/canvg/rgbcolor.js"></script> 
-<script type="text/javascript" src="http://canvg.github.io/canvg/StackBlur.js"></script>
-<script type="text/javascript" src="http://canvg.github.io/canvg/canvg.js"></script> 
 
   <script>
 	var want_y = 105;
@@ -63,6 +106,17 @@
 	var have_col = 0;
 	var total_have = 0;
 	var total_want = 0;
+
+	 var selectedGenName = "";
+ 	 var PhotoSrcArray = [];
+	 var PhotoSrcArrayGen2 = [];
+	 var PhotoSrcArrayGen3 = [];
+	 var PhotoSrcArrayGen4 = [];
+	 var gen1Offset = 1;
+	 var gen2Offset = 152;
+	 var gen3Offset = 252;
+	 var gen4Offset = 387;
+
 	function addImage() {
 		 
 		var typeSelect =  document.querySelector('input[name="fieldSelect"]:checked').value;
@@ -70,6 +124,19 @@
 		var svg = document.getElementById('tag');
 		
 		var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'image'); //Create a path in SVG's namespace
+		if(selectedGenName == "Gen2")
+		{
+			inputData = (parseInt(inputData,"10") + gen2Offset-1).toString();
+		}
+		if(selectedGenName == "Gen3")
+		{
+			inputData = (parseInt(inputData,"10") + gen3Offset-1).toString();
+		}
+		if(selectedGenName == "Gen4")
+		{
+			inputData = (parseInt(inputData,"10") + gen4Offset-1).toString();
+		}
+
 		newElement.setAttribute("xlink:href","http://pokedream.com/pokedex/images/blackwhite/front/"+("000" + (inputData)).slice(-3)+".png"); //Set path's data
 		newElement.setAttribute("width","25");
 		newElement.setAttribute("height","25");
@@ -119,17 +186,55 @@
 		$("#div-box-left").html($("#div-box-left").html());
 	}
 	
-  
-  
-	 var PhotoSrcArray = [];
 
-	for(var i = 1; i <= 721; i++){
+  	function openGenTab(evt, genName) {
+    // Declare all variables
+	    var i, tabcontent, tablinks;
+
+	    // Get all elements with class="tabcontent" and hide them
+	    tabcontent = document.getElementsByClassName("tabcontent");
+	    for (i = 0; i < tabcontent.length; i++) {
+	        tabcontent[i].style.display = "none";
+	    }
+
+	    // Get all elements with class="tablinks" and remove the class "active"
+	    tablinks = document.getElementsByClassName("tablinks");
+	    for (i = 0; i < tablinks.length; i++) {
+	        tablinks[i].className = tablinks[i].className.replace(" active", "");
+	    }
+	    selectedGenName = genName;
+	    // Show the current tab, and add an "active" class to the button that opened the tab
+	    document.getElementById(genName).style.display = "block";
+	    evt.currentTarget.className += " active";
+	}
+  
+	
+
+	for(var i = 1; i <= 151; i++){
 	   PhotoSrcArray.push("http://pokedream.com/pokedex/images/blackwhite/front/"+("000" + i).slice(-3)+".png")
+	}
+	for(var i = 152; i <= 251; i++){
+	   PhotoSrcArrayGen2.push("http://pokedream.com/pokedex/images/blackwhite/front/"+("000" + i).slice(-3)+".png")
+	}
+	for(var i = 252; i <= 386; i++){
+	   PhotoSrcArrayGen3.push("http://pokedream.com/pokedex/images/blackwhite/front/"+("000" + i).slice(-3)+".png")
+	}
+	for(var i = 387; i <= 493; i++){
+	   PhotoSrcArrayGen4.push("http://pokedream.com/pokedex/images/blackwhite/front/"+("000" + i).slice(-3)+".png")
 	}
 	
 	$( document ).ready(function() {
 		for(var i = 0; i < PhotoSrcArray.length; i++){
-		$("#imgs").append('<label><input type="radio"  onChange="addImage()" name="pokemonSelection" value="'+(i+1).toString() +'"/><img src="'+PhotoSrcArray[i] +'"></label>');
+		$("#imgsGen1").append('<label><input type="radio"  onChange="addImage()" name="pokemonSelection" value="'+(i+1).toString() +'"/><img src="'+PhotoSrcArray[i] +'"></label>');
+		}
+		for(var i = 0; i < PhotoSrcArrayGen2.length; i++){
+		$("#imgsGen2").append('<label><input type="radio"  onChange="addImage()" name="pokemonSelection" value="'+(i+1).toString() +'"/><img src="'+PhotoSrcArrayGen2[i] +'"></label>');
+		}
+		for(var i = 0; i < PhotoSrcArrayGen3.length; i++){
+		$("#imgsGen3").append('<label><input type="radio"  onChange="addImage()" name="pokemonSelection" value="'+(i+1).toString() +'"/><img src="'+PhotoSrcArrayGen3[i] +'"></label>');
+		}
+		for(var i = 0; i < PhotoSrcArrayGen4.length; i++){
+		$("#imgsGen4").append('<label><input type="radio"  onChange="addImage()" name="pokemonSelection" value="'+(i+1).toString() +'"/><img src="'+PhotoSrcArrayGen4[i] +'"></label>');
 		}
 	});
 	
@@ -272,13 +377,38 @@
 		<input type="button" onclick="removeHave()" name="avatar" value="Remove for Trade">
 		<br>
 		<br>
-			<input type="radio" name="fieldSelect" value="want" checked>Want<br>
-			<input type="radio" name="fieldSelect" value="have">Have<br><br>
-			<ul id="imgs"></ul>
-			
-			
+		<input type="radio" name="fieldSelect" value="want" checked>Want<br>
+		<input type="radio" name="fieldSelect" value="have">Have<br><br>			
 		</div>
-		
+			<div id="Gen1" class="tabcontent">
+			 	<ul id="imgsGen1"></ul>
+			</div>
+			<div id="Gen2" class="tabcontent">
+				<ul id="imgsGen2"></ul>
+			</div>
+			<div id="Gen3" class="tabcontent">
+				<ul id="imgsGen3"></ul>
+			</div>
+			<div id="Gen4" class="tabcontent">
+				<ul id="imgsGen4"></ul>
+			</div>
+			  
+			
+			
+
+			
+			<div class="tab">
+			  <button class="tablinks" onclick="openGenTab(event, 'Gen1')">Gen I</button>
+			  <button class="tablinks" onclick="openGenTab(event, 'Gen2')">Gen II</button>
+			  <button class="tablinks" onclick="openGenTab(event, 'Gen3')">Gen III</button>
+			  <button class="tablinks" onclick="openGenTab(event, 'Gen4')">Gen IV</button>
+			</div>
+
+			<!-- Tab content -->
+			
+
+			
+			
 	  </div>
   </div>
   
