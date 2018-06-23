@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 
 <html lang="en">
 <head>
@@ -8,409 +8,101 @@
   <meta name="description" content="Trainer Trading Card Generator">
   <meta name="author" content="Terry Gelbart">
 
-  
+  <!-- Latest compiled and minified CSS -->
 
-  <!--[if lt IE 9]>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
-  <![endif]-->
-</head>
-
-<body>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Kanit' rel='stylesheet'>
 	<style>
-		#div-outer {
-			display: flex;
-		}
+	body {
+	    font-family: 'Kanit';font-size: 22px;
+	}
+	.panel{
+		background: linear-gradient(rgba(153, 204, 255,1), rgba(153, 204, 255,0));
+	}
+	#cardSection{
+		
+		height: fit-content;
+		min-width: fit-content;
 
-		#div-outer {
-			height: 1000px;
-			width: 600px;
-			margin: 1%;
-		}
-		#div-box-left {
-			height: 1000px;
-			width: 550px;
-			margin: 1%;
-		}
-		ul{
-			height: 320px;
-			width: 120px;
-			padding-left: 5px;
-			overflow: auto;
-			
-		}
-		/* Style the tab */
-		.tab {
-		    overflow: hidden;
-		    border: 1px solid #ccc;
-		    background-color: #f1f1f1;
-		    
-		    width: 150px;
-		}
+	}
+	.well{
+		
+		max-height: 300px;
+		overflow-y: scroll;
 
-		/* Style the buttons that are used to open the tab content */
-		.tab button {
-		    background-color: inherit;
-		    float: left;
-		    border: none;
-		    outline: none;
-		    cursor: pointer;
-		    padding: 14px 16px;
-		    transition: 0.3s;
-		}
-
-		/* Change background color of buttons on hover */
-		.tab button:hover {
-		    background-color: #ddd;
-		}
-
-		/* Create an active/current tablink class */
-		.tab button.active {
-		    background-color: #ccc;
-		}
-
-		/* Style the tab content */
-		.tabcontent {
-		    display: none;
-		    padding: 6px 12px;
-		    
-		    border-top: none;
-		    width: 50px;
-		    height: 350px;
-		    padding-bottom: 20px;
-		}
-		form{
-			color: black;
-			font-family:sans-serif;
-		}
-		label > input{ /* HIDE RADIO */
-		  visibility: hidden; /* Makes input not-clickable */
-		  position: absolute; /* Remove input from document flow */
-		}
-		label > input + img{ /* IMAGE STYLES */
-		  cursor:pointer;
-		  border:2px solid transparent;
-		}
-		label > input:checked + img{ /* (RADIO CHECKED) IMAGE STYLES */
-		  border:2px solid #f00;
-		}		
+	}
 	</style>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-  <script>
-	var want_y = 105;
-	var have_y = 200;
-	var want_offset = 0;
-	var have_offset = 0;
-	var want_col = 0;
-	var have_col = 0;
-	var total_have = 0;
-	var total_want = 0;
-
-	 var selectedGenName = "";
- 	 var PhotoSrcArray = [];
-	 var PhotoSrcArrayGen2 = [];
-	 var PhotoSrcArrayGen3 = [];
-	 var PhotoSrcArrayGen4 = [];
-	 var gen1Offset = 1;
-	 var gen2Offset = 152;
-	 var gen3Offset = 252;
-	 var gen4Offset = 387;
-
-	function addImage() {
-		 
-		var typeSelect =  document.querySelector('input[name="fieldSelect"]:checked').value;
-		var inputData =  document.querySelector('input[name="pokemonSelection"]:checked').value;
-		var svg = document.getElementById('tag');
-		
-		var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'image'); //Create a path in SVG's namespace
-		if(selectedGenName == "Gen2")
-		{
-			inputData = (parseInt(inputData,"10") + gen2Offset-1).toString();
-		}
-		if(selectedGenName == "Gen3")
-		{
-			inputData = (parseInt(inputData,"10") + gen3Offset-1).toString();
-		}
-		if(selectedGenName == "Gen4")
-		{
-			inputData = (parseInt(inputData,"10") + gen4Offset-1).toString();
-		}
-
-		newElement.setAttribute("xlink:href","http://pokedream.com/pokedex/images/blackwhite/front/"+("000" + (inputData)).slice(-3)+".png"); //Set path's data
-		newElement.setAttribute("width","25");
-		newElement.setAttribute("height","25");
-		
-		if(typeSelect == "have")
-		{
-			if(total_have < 15)
-			{
-				newElement.setAttribute("x", (have_col * 30 + 15).toString());
-				newElement.setAttribute("y", (have_y + have_offset).toString());
-				newElement.setAttribute("ID", "haveImage");
-				have_col++;
-				if(have_col % 5 == 0)
-				{
-					have_col = 0;
-					
-					have_offset+=22;
-					
-				}
-				total_have++;
-				svg.appendChild(newElement);
-			}
-			
-			
-		}
-		else
-		{
-			if(total_want < 15)
-			{
-				newElement.setAttribute("x", (want_col * 30 + 15).toString());
-				newElement.setAttribute("y", (want_y + want_offset).toString());
-				newElement.setAttribute("ID", "wantImage");
-				want_col++;
-				if(want_col % 5 == 0)
-				{
-					want_col = 0;
-					want_offset+=22;
-					
-				}
-				total_want++;
-				svg.appendChild(newElement);
-			}
-			
-			
-		}
-
-		$("#div-box-left").html($("#div-box-left").html());
-	}
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	
+</head>
 
-  	function openGenTab(evt, genName) {
-    // Declare all variables
-	    var i, tabcontent, tablinks;
 
-	    // Get all elements with class="tabcontent" and hide them
-	    tabcontent = document.getElementsByClassName("tabcontent");
-	    for (i = 0; i < tabcontent.length; i++) {
-	        tabcontent[i].style.display = "none";
-	    }
+<body>
+	<script src="scripts.js"></script>
+	<div class="row" style="margin-left: 0px;">
+	<h2>Card Generator</h2>
+	  <div class="col-sm-4" id="cardSection">
+		<div class="panel panel-default" id="cardSection">
+    		<div class="panel-body" id="cardSection">
+    			<img src="cardBase.png" id="baseCardImg" style="display: none;">
+    			<img src="instinct-f.png" id="avatarImg" style="display: none;">
+    			<img src="" id="printToCanvasImg" style="display: none;">
+    			<canvas id="canvas"></canvas>
 
-	    // Get all elements with class="tablinks" and remove the class "active"
-	    tablinks = document.getElementsByClassName("tablinks");
-	    for (i = 0; i < tablinks.length; i++) {
-	        tablinks[i].className = tablinks[i].className.replace(" active", "");
-	    }
-	    selectedGenName = genName;
-	    // Show the current tab, and add an "active" class to the button that opened the tab
-	    document.getElementById(genName).style.display = "block";
-	    evt.currentTarget.className += " active";
-	}
-  
-	
-
-	for(var i = 1; i <= 151; i++){
-	   PhotoSrcArray.push("http://pokedream.com/pokedex/images/blackwhite/front/"+("000" + i).slice(-3)+".png")
-	}
-	for(var i = 152; i <= 251; i++){
-	   PhotoSrcArrayGen2.push("http://pokedream.com/pokedex/images/blackwhite/front/"+("000" + i).slice(-3)+".png")
-	}
-	for(var i = 252; i <= 386; i++){
-	   PhotoSrcArrayGen3.push("http://pokedream.com/pokedex/images/blackwhite/front/"+("000" + i).slice(-3)+".png")
-	}
-	for(var i = 387; i <= 493; i++){
-	   PhotoSrcArrayGen4.push("http://pokedream.com/pokedex/images/blackwhite/front/"+("000" + i).slice(-3)+".png")
-	}
-	
-	$( document ).ready(function() {
-		for(var i = 0; i < PhotoSrcArray.length; i++){
-		$("#imgsGen1").append('<label><input type="radio"  onChange="addImage()" name="pokemonSelection" value="'+(i+1).toString() +'"/><img src="'+PhotoSrcArray[i] +'"></label>');
-		}
-		for(var i = 0; i < PhotoSrcArrayGen2.length; i++){
-		$("#imgsGen2").append('<label><input type="radio"  onChange="addImage()" name="pokemonSelection" value="'+(i+1).toString() +'"/><img src="'+PhotoSrcArrayGen2[i] +'"></label>');
-		}
-		for(var i = 0; i < PhotoSrcArrayGen3.length; i++){
-		$("#imgsGen3").append('<label><input type="radio"  onChange="addImage()" name="pokemonSelection" value="'+(i+1).toString() +'"/><img src="'+PhotoSrcArrayGen3[i] +'"></label>');
-		}
-		for(var i = 0; i < PhotoSrcArrayGen4.length; i++){
-		$("#imgsGen4").append('<label><input type="radio"  onChange="addImage()" name="pokemonSelection" value="'+(i+1).toString() +'"/><img src="'+PhotoSrcArrayGen4[i] +'"></label>');
-		}
-	});
-	
-	function updateAvatar() {
-		 var photo = document.getElementById('photoBox');
-		 var avatarSelection =  document.querySelector('input[name="avatar"]:checked').value;
-		 photo.setAttribute("style","fill: url(#"+avatarSelection + ");");
-		 var badge = document.getElementById('badgeBox');
-		 var outerBox = document.getElementById('photoBoxOuter');
-		 if(avatarSelection.includes("instinct") )
-		 {
-			badge.setAttribute("style", "fill: rgb(180, 220, 240); stroke: yellow; stroke-width: 3px;");
-			outerBox.setAttribute("style", "fill: rgb(220, 220, 150);");
-		 }
-		 if(avatarSelection.includes("mystic") )
-		 {
-			badge.setAttribute("style", "fill: rgb(180, 220, 240); stroke: blue; stroke-width: 3px;");
-			outerBox.setAttribute("style", "fill: rgb(150, 200, 255);");
-		 }
-		 if(avatarSelection.includes("valor") )
-		 {
-			badge.setAttribute("style", "fill: rgb(180, 220, 240); stroke: red; stroke-width: 3px;");
-			outerBox.setAttribute("style", "fill: rgb(255, 150, 150);");
-		 }
-		 
-	}
-	function updateName() {
-		 
-		var inputData =  document.querySelector('input[name="Name"]').value;
-		if(inputData != "")
-		{
-			document.getElementById('nameString').innerHTML  = inputData;
-		}
-		else
-		{
-			document.getElementById('nameString').innerHTML  = "Trainer Name";
-		}
-		 
-	}
-	function updateID() {
-		 
-		var inputData =  document.querySelector('input[name="ID"]').value;
-		if(inputData != "")
-		{
-			document.getElementById('IDString').innerHTML  = inputData;
-		}
-		else
-		{
-			document.getElementById('IDString').innerHTML  = "Trainer ID Code";
-		}
-		 
-	}
-	function removeWant() {
-		if(want_col >0 || (want_col == 0 && want_offset > 0))
-		{
-			var svg = document.getElementById('tag');
-			var items = $('[id=wantImage]').get();
-			items.forEach(function(item) {
-			  svg.removeChild(item);
-			});
-			want_col = 0;
-			want_offset = 0;
-			total_want = 0;
-		}
-		 
-	}
-	function removeHave() {
-		if(have_col >0 || (have_col == 0 && have_offset > 0))
-		{
-			var svg = document.getElementById('tag');
-			var items = $('[id=haveImage]').get();
-			items.forEach(function(item) {
-			  svg.removeChild(item);
-			});
-			have_col = 0;
-			have_offset = 0;
-			total_have = 0;
-		}
-		 
-	}
-
-  </script>
-  <div id="div-outer">
-	  <div id="div-box-left">
-		 <svg id="tag" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
-			<defs>
-			  <pattern id="instinct-f" patternUnits="objectBoundingBox" width="1" height="1">
-				<image xlink:href="instinct-f.png" x="9" y="8" width="33" height="33" />
-			  </pattern>
-			  <pattern id="instinct-m" patternUnits="objectBoundingBox" width="1" height="1">
-				<image xlink:href="instinct-m.png" x="9" y="8" width="33" height="33" />
-			  </pattern>
-			  <pattern id="valor-f" patternUnits="objectBoundingBox" width="1" height="1">
-				<image xlink:href="valor-f.png" x="9" y="8" width="33" height="33" />
-			  </pattern>
-			  <pattern id="valor-m" patternUnits="objectBoundingBox" width="1" height="1">
-				<image xlink:href="valor-m.png" x="9" y="8" width="33" height="33" />
-			  </pattern>
-			  <pattern id="mystic-f" patternUnits="objectBoundingBox" width="1" height="1">
-				<image xlink:href="mystic-f.png" x="9" y="8" width="33" height="33" />
-			  </pattern>
-			  <pattern id="mystic-m" patternUnits="objectBoundingBox" width="1" height="1">
-				<image xlink:href="mystic-m.png" x="9" y="8" width="33" height="33" />
-			  </pattern>
-			</defs>
-			
-			<rect x="5" y="5" width="180" height="275" rx="12" style="fill: rgb(180, 240, 255); stroke: none; stroke-width: 3px;"></rect>
-			<rect id="badgeBox" x="10" y="10" width="170" height="75" rx="12" style="fill: rgb(180, 220, 240); stroke: yellow; stroke-width: 3px;"></rect>
-			<text id="nameString" x="20" y="30" style="white-space: pre; fill: black; font-size: 13px; font-family: sans-serif">Trainer Name</text>
-			<text id ="IDString" x="20" y="50" style="white-space: pre; fill: black; font-size: 9px; font-family: sans-serif">Trainer ID Code</text>
-			<rect id="photoBoxOuter" x="120" y="20" width="50" height="50" rx="12" style="fill: rgb(220, 220, 150);"></rect>
-			<rect id="photoBox" x="120" y="20" width="50" height="50" rx="12" style="fill: url(#instinct-f);"></rect>
-			
-			<rect x="10" y="90" width="170" height="90" rx="12" style="fill: none; stroke: rgb(200, 200, 200); stroke-width: 3px;"></rect>
-			<text x="20" y="100" style="white-space: pre; fill: black; font-size: 6px; font-family: sans-serif">Pokemon I Want:</text>
-			<rect x="10" y="185" width="170" height="90" rx="12" style="fill: none; stroke: rgb(200, 200, 200); stroke-width: 3px;"></rect>
-			<text x="20" y="195" style="white-space: pre; fill: black; font-size: 6px; font-family: sans-serif">Pokemon for Trade:</text>
-			
-		</svg>
+    		</div>
+  		</div>
 	  </div>
-	  <div id="div-box-right">
-		<form> 
-		<label>Name</label>
-		<input  oninput="updateName()" name="Name"> <br><br>
-		<label>ID</label> 
-		<input  oninput="updateID()" name="ID"> <br><br>
-		  <input type="radio" onChange="updateAvatar()" name="avatar" value="instinct-f" checked>Instinct Female<br>
-		  <input type="radio" onChange="updateAvatar()" name="avatar" value="instinct-m">Instinct Male<br>
-		  <input type="radio" onChange="updateAvatar()" name="avatar" value="mystic-f">Mystic Female <br>
-		  <input type="radio" onChange="updateAvatar()" name="avatar" value="mystic-m">Mystic Male<br>
-		  <input type="radio" onChange="updateAvatar()" name="avatar" value="valor-f">Valor Female<br>
-		  <input type="radio" onChange="updateAvatar()" name="avatar" value="valor-m">Valor Male<br>
-		  
-		</form>
-		<div>
-		<br>
-		<br>
-		<br>
-		<input type="button" onclick="removeWant()" name="avatar" value="Remove Want"><br><br>
-		<input type="button" onclick="removeHave()" name="avatar" value="Remove for Trade">
-		<br>
-		<br>
-		<input type="radio" name="fieldSelect" value="want" checked>Want<br>
-		<input type="radio" name="fieldSelect" value="have">Have<br><br>			
-		</div>
-			<div id="Gen1" class="tabcontent">
-			 	<ul id="imgsGen1"></ul>
-			</div>
-			<div id="Gen2" class="tabcontent">
-				<ul id="imgsGen2"></ul>
-			</div>
-			<div id="Gen3" class="tabcontent">
-				<ul id="imgsGen3"></ul>
-			</div>
-			<div id="Gen4" class="tabcontent">
-				<ul id="imgsGen4"></ul>
-			</div>
-			  
-			
-			
+	  <div class="col-sm-8">
+	  	<div class="panel panel-default">
+    		<div class="panel-body">
 
-			
-			<div class="tab">
-			  <button class="tablinks" onclick="openGenTab(event, 'Gen1')">Gen I</button>
-			  <button class="tablinks" onclick="openGenTab(event, 'Gen2')">Gen II</button>
-			  <button class="tablinks" onclick="openGenTab(event, 'Gen3')">Gen III</button>
-			  <button class="tablinks" onclick="openGenTab(event, 'Gen4')">Gen IV</button>
-			</div>
-
-			<!-- Tab content -->
-			
-
-			
-			
+    			<div class="form-group">
+				  <label for="usr">Name:</label>
+				  <input type="text" class="form-control" oninput="drawCardCanvas()" id="usr">
+				  <label for="idBox">ID:</label>
+				  <input type="text" class="form-control" oninput="drawCardCanvas()" id="idBox">
+				</div>
+				<div class="form-group">
+				  <label for="avatarSelection">Select Avatar Style:</label>
+				  <select class="form-control" id="avatarSelection" onchange="updateAvatar()">
+				    <option>Instinct Female</option>
+				    <option>Instinct Male</option>
+				    <option>Mystic Female</option>
+				    <option>Mystic Male</option>
+				    <option>Valor Female</option>
+				    <option>Valor Male</option>
+				  </select>
+				</div>
+				<label for="genSelect">Switch Generations</label>
+				<div class="btn-group" id="genSelect">
+				  <button type="button" class="btn btn-primary" onclick='displayGen("gen1Box")'>Gen I</button>
+				  <button type="button" class="btn btn-primary" onclick='displayGen("gen2Box")'>Gen II</button>
+				  <button type="button" class="btn btn-primary" onclick='displayGen("gen3Box")'>Gen III</button>
+				  <button type="button" class="btn btn-primary" onclick='displayGen("gen4Box")'>Gen IV</button>
+				</div>
+				<label for="addTypeSelect">Trade Type</label>
+				<div class="btn-group" id="addTypeSelect">
+				  <button type="button" class="btn btn-primary tradeType active" id="forTradeButton" onclick='selectAddType("forTradeButton")'>For Trade</button>
+				  <button type="button" class="btn btn-primary tradeType" id="lookingForButton" onclick='selectAddType("lookingForButton")'>Looking For</button>
+				</div>
+    		</div>
+    		<div class="panel-body">
+    			<div class="well imagesDisplay" id="gen1Box" style="display: none;"></div>
+    			<div class="well imagesDisplay" id="gen2Box" style="display: none;"></div>
+    			<div class="well imagesDisplay" id="gen3Box" style="display: none;"></div>
+    			<div class="well imagesDisplay" id="gen4Box" style="display: none;"></div>
+    		</div>
+  		</div>
 	  </div>
-  </div>
-  
+	</div>
+
+
+
+
 </body>
 </html>
