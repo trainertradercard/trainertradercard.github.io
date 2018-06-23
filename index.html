@@ -22,7 +22,7 @@
 		}
 
 		#div-outer div {
-			height: 350px;
+			height: 1000px;
 			width: 550px;
 			margin: 1%;
 		}
@@ -50,9 +50,13 @@
 	</style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://canvg.github.io/canvg/rgbcolor.js"></script> 
+<script type="text/javascript" src="http://canvg.github.io/canvg/StackBlur.js"></script>
+<script type="text/javascript" src="http://canvg.github.io/canvg/canvg.js"></script> 
+
   <script>
 	var want_y = 105;
-	var have_y = 205;
+	var have_y = 200;
 	var want_offset = 0;
 	var have_offset = 0;
 	var want_col = 0;
@@ -67,22 +71,22 @@
 		
 		var newElement = document.createElementNS("http://www.w3.org/2000/svg", 'image'); //Create a path in SVG's namespace
 		newElement.setAttribute("xlink:href","http://pokedream.com/pokedex/images/blackwhite/front/"+("000" + (inputData)).slice(-3)+".png"); //Set path's data
-		newElement.setAttribute("width","40");
-		newElement.setAttribute("height","40");
+		newElement.setAttribute("width","25");
+		newElement.setAttribute("height","25");
 		
 		if(typeSelect == "have")
 		{
-			if(total_have < 8)
+			if(total_have < 15)
 			{
-				newElement.setAttribute("x", (have_col * 40 + 10).toString());
+				newElement.setAttribute("x", (have_col * 30 + 15).toString());
 				newElement.setAttribute("y", (have_y + have_offset).toString());
 				newElement.setAttribute("ID", "haveImage");
 				have_col++;
-				if(have_col % 4 == 0)
+				if(have_col % 5 == 0)
 				{
 					have_col = 0;
 					
-					have_offset+=30;
+					have_offset+=22;
 					
 				}
 				total_have++;
@@ -93,16 +97,16 @@
 		}
 		else
 		{
-			if(total_want < 8)
+			if(total_want < 15)
 			{
-				newElement.setAttribute("x", (want_col * 40 + 10).toString());
+				newElement.setAttribute("x", (want_col * 30 + 15).toString());
 				newElement.setAttribute("y", (want_y + want_offset).toString());
 				newElement.setAttribute("ID", "wantImage");
 				want_col++;
-				if(want_col % 4 == 0)
+				if(want_col % 5 == 0)
 				{
 					want_col = 0;
-					want_offset+=30;
+					want_offset+=22;
 					
 				}
 				total_want++;
@@ -206,8 +210,7 @@
 		}
 		 
 	}
-	
-	
+
   </script>
   <div id="div-outer">
 	  <div id="div-box-left">
@@ -241,12 +244,11 @@
 			<rect id="photoBox" x="120" y="20" width="50" height="50" rx="12" style="fill: url(#instinct-f);"></rect>
 			
 			<rect x="10" y="90" width="170" height="90" rx="12" style="fill: none; stroke: rgb(200, 200, 200); stroke-width: 3px;"></rect>
-			<text x="20" y="105" style="white-space: pre; fill: black; font-size: 6px; font-family: sans-serif">Want:</text>
+			<text x="20" y="100" style="white-space: pre; fill: black; font-size: 6px; font-family: sans-serif">Pokemon I Want:</text>
 			<rect x="10" y="185" width="170" height="90" rx="12" style="fill: none; stroke: rgb(200, 200, 200); stroke-width: 3px;"></rect>
-			<text x="20" y="200" style="white-space: pre; fill: black; font-size: 6px; font-family: sans-serif">Have:</text>
+			<text x="20" y="195" style="white-space: pre; fill: black; font-size: 6px; font-family: sans-serif">Pokemon for Trade:</text>
 			
 		</svg>
-	  
 	  </div>
 	  <div id="div-box-right">
 		<form> 
@@ -265,8 +267,9 @@
 		<div>
 		<br>
 		<br>
-		<input type="button" onclick="removeWant()" name="avatar" value="Remove Want"><br>
-		<input type="button" onclick="removeHave()" name="avatar" value="Remove Have">
+		<br>
+		<input type="button" onclick="removeWant()" name="avatar" value="Remove Want"><br><br>
+		<input type="button" onclick="removeHave()" name="avatar" value="Remove for Trade">
 		<br>
 		<br>
 			<input type="radio" name="fieldSelect" value="want" checked>Want<br>
