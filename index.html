@@ -39,11 +39,13 @@
 	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	
+	
 </head>
 
 
 <body>
 	<script src="scripts.js"></script>
+	
 	<div class="row" style="margin-left: 0px;">
 	<h2>Card Generator</h2>
 	  <div class="col-sm-4" id="cardSection">
@@ -78,17 +80,27 @@
 				    <option>Valor Male</option>
 				  </select>
 				</div>
+				
+				<label for="removeTypeSelect">Remove Entry</label>
+				<div class="btn-group" id="removeTypeSelect">
+				  <button type="button" class="btn btn-primary tradeType active" id="forTradeButton" onclick='removeLast("forTradeButton")'>Remove last For Trade</button>
+				  <button type="button" class="btn btn-primary tradeType" id="lookingForButton" onclick='removeLast("lookingForButton")'>Remove last Looking For</button>
+				</div>
+				<br>
+				<br>
+				<label for="addTypeSelect">Trade Type</label>
+				<div class="btn-group" id="addTypeSelect">
+				  <button type="button" class="btn btn-primary tradeType active" id="forTradeButton" onclick='selectAddType("forTradeButton")'>For Trade</button>
+				  <button type="button" class="btn btn-primary tradeType" id="lookingForButton" onclick='selectAddType("lookingForButton")'>Looking For</button>
+				</div>
+				<br>
+				<br>
 				<label for="genSelect">Switch Generations</label>
 				<div class="btn-group" id="genSelect">
 				  <button type="button" class="btn btn-primary" onclick='displayGen("gen1Box")'>Gen I</button>
 				  <button type="button" class="btn btn-primary" onclick='displayGen("gen2Box")'>Gen II</button>
 				  <button type="button" class="btn btn-primary" onclick='displayGen("gen3Box")'>Gen III</button>
 				  <button type="button" class="btn btn-primary" onclick='displayGen("gen4Box")'>Gen IV</button>
-				</div>
-				<label for="addTypeSelect">Trade Type</label>
-				<div class="btn-group" id="addTypeSelect">
-				  <button type="button" class="btn btn-primary tradeType active" id="forTradeButton" onclick='selectAddType("forTradeButton")'>For Trade</button>
-				  <button type="button" class="btn btn-primary tradeType" id="lookingForButton" onclick='selectAddType("lookingForButton")'>Looking For</button>
 				</div>
     		</div>
     		<div class="panel-body">

@@ -142,6 +142,18 @@ function addImageDynamically(_src){
 	drawCardCanvas();
 }
 
+function removeLast(type){
+	if(type == "forTradeButton")
+	{
+		forTradeImg.pop();
+	}
+	if(type == "lookingForButton")
+	{
+		lookingForImg.pop();
+	}
+	drawCardCanvas();
+}
+
 
 function displayGen(genBoxId){
 	$('.well').attr('style', "display: none;");
